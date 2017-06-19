@@ -1,11 +1,12 @@
 var express = require('express');
 var getConfigBat = require('./connect_router').getConfigBat;
+var saveMap = require('../model/res_map').saveMap;
 var connectConfig = require('../model/connection_config');
 var resObjKey = require('../model/res_obj_key');
 var router = express.Router();
 
 var resMsg = { responseMessage: "" };
-var resMap = new Map();
+
 
 router.use(function timeLog(req, res, next) {
     console.log('Time:', Date.now)
@@ -62,14 +63,5 @@ function handleRequest(req) {
     var connecConfigObj = new connectConfig(req.query['hostAddress'], req.query['portNumber'], req.query['userName'], req.query['udsName'], req.query['executiveName']);
     return JSON.stringify(connecConfigObj);
 }
-/*
-function saveMap(resKey, res) {
-    var resKeyJSON = JSON.stringify(resKey);
-    resMap.set(resKeyJSON, res);
-}
 
-var getResponseObj = function (resObjKey) {
-    return resMap.get(resObjKey);
-}
-*/
 module.exports = router;

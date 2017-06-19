@@ -1,7 +1,7 @@
 var express = require('express');
 var connectConfig = require('../model/connection_config');
-//var Map = require("collections/map");
-//var getResObject = require('./status_update_router').getResponseObj;
+
+var getResObject = require('../model/res_map').getResponseObj;
 var resObjKey = require('../model/res_obj_key');
 var map = new Map();
 var router = express.Router();
@@ -91,8 +91,6 @@ router.get('/spawn', function (req, res) {
 })
 
 var getConfigBat = function (config) {
-    //console.log("getConfigBat: " + map.get(config));
-    //console.log("config: "+ config);
     return map.get(config);
 }
 
@@ -103,9 +101,9 @@ function sendResponse(data, res) {
 }
 
 function getResponseObj(connectConfigJSON, command) {
-   // var resKey = new resObjKey(connectConfigJSON, command);
-   // var resKeyJSON = JSON.stringify(resKey);
-   // return getResObject(resKeyJSON);
+    var resKey = new resObjKey(connectConfigJSON, command);
+    var resKeyJSON = JSON.stringify(resKey);
+    return getResObject(resKeyJSON);
 }
 
 

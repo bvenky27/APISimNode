@@ -2,13 +2,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 var connect = require('./router/connect_router').router
-var statusUpdate = require('./router/status_update_router').router 
+var statusUpdate = require('./router/status_update_router');
 
 const app = express()
 var expObject = null;
 
-//const spawn = require('child_process').spawn;
-//var bat = null;
+
 
 app.use('/connection', connect);
 app.use('/statusUpdate', statusUpdate);
