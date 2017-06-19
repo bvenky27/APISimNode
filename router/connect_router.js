@@ -55,13 +55,53 @@ router.get('/connect', function (req, res) {
             resMsg.responseMessage = "Run Command Failed!!!";
             var resObj = getResponseObj(connectConfigJSON, "run");
             sendResponse(resMsg, resObj);
-        } else if (data.toString().includes('giiExecFreeze returned -1')) {
+        } else if (data.toString().includes('giiExecFreeze returned 0')) {
             resMsg.responseMessage = "Freeze Command Successful!!!";
             var resObj = getResponseObj(connectConfigJSON, "freeze");
             sendResponse(resMsg, resObj);
         } else if (data.toString().includes('giiExecFreeze returned -1')) {
             resMsg.responseMessage = "Freeze Command Failed!!!";
             var resObj = getResponseObj(connectConfigJSON, "freeze");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecHold returned 0')) {
+            resMsg.responseMessage = "Hold Command Successful!!!";
+            var resObj = getResponseObj(connectConfigJSON, "hold");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecHold returned -1')) {
+            resMsg.responseMessage = "Hold Command Failed!!!";
+            var resObj = getResponseObj(connectConfigJSON, "hold");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecRate returned 0')) {
+            resMsg.responseMessage = "Rate Command Successful!!!";
+            var resObj = getResponseObj(connectConfigJSON, "rate");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecRate returned -1')) {
+            resMsg.responseMessage = "Rate Command Failed!!!";
+            var resObj = getResponseObj(connectConfigJSON, "rate");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecSnap returned 0')) {
+            resMsg.responseMessage = "Snap Command Successful!!!";
+            var resObj = getResponseObj(connectConfigJSON, "snap");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecSnap returned -1')) {
+            resMsg.responseMessage = "Snap Command Failed!!!";
+            var resObj = getResponseObj(connectConfigJSON, "snap");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecReset returned 0')) {
+            resMsg.responseMessage = "Reset Command Successful!!!";
+            var resObj = getResponseObj(connectConfigJSON, "reset");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecReset returned -1')) {
+            resMsg.responseMessage = "Reset Command Failed!!!";
+            var resObj = getResponseObj(connectConfigJSON, "reset");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecReset returned 0')) {
+            resMsg.responseMessage = "GetDbmMap Command Successful!!!";
+            var resObj = getResponseObj(connectConfigJSON, "GetDbmMap");
+            sendResponse(resMsg, resObj);
+        } else if (data.toString().includes('giiExecReset returned -1')) {
+            resMsg.responseMessage = "GetDbmMap Command Failed!!!";
+            var resObj = getResponseObj(connectConfigJSON, "GetDbmMap");
             sendResponse(resMsg, resObj);
         }
         

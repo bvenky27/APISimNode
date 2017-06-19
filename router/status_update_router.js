@@ -13,14 +13,13 @@ router.use(function timeLog(req, res, next) {
     console.log("Handling statusUpdate request")
     next()
 })
+
+
 //To execute the Run Command
 router.get('/run', function (req, res) {
-    var connecConfigObj = new connectConfig(req.query['hostAddress'], req.query['portNumber'], req.query['userName'], req.query['udsName'], req.query['executiveName']);
-    var connectConfigJSON = JSON.stringify(connecConfigObj);
-    var resKey = new resObjKey(connectConfigJSON, "run");
-    //save the response object
-    saveMap(resKey, res);
-    console.log('In status update router: ' + getConfigBat(connectConfigJSON));
+    var resKey = new resObjKey(handleRequest(req), "run");
+    saveMap(resKey, res);                   //save the response object
+    console.log('In status update run: ' + getConfigBat(connectConfigJSON));
     if (getConfigBat(connectConfigJSON) != null) {
         getConfigBat(connectConfigJSON).stdin.write("Run\n");
     } else {
@@ -28,10 +27,12 @@ router.get('/run', function (req, res) {
         sendResponse(resMsg, res);
     }
 })
-//to exxecute Freeze command
+
+
+//to execute Freeze command
 router.get('/freeze', function (req, res) {
-    var connecConfigObj = new connectConfig(req.query['hostAddress'], req.query['portNumber'], req.query['userName'], req.query['udsName'], req.query['executiveName']);
-    var connectConfigJSON = JSON.stringify(connecConfigObj);
+    var resKey = new resObjKey(handleRequest(req), "freeze");
+    saveMap(resKey, res);               //save the response object
     console.log('In status update freeze: ' + getConfigBat(connectConfigJSON));
     if (getConfigBat(connectConfigJSON) != null) {
         getConfigBat(connectConfigJSON).stdin.write("Freeze\n");
@@ -40,18 +41,83 @@ router.get('/freeze', function (req, res) {
         sendResponse(resMsg, res);
     }
 })
+
+
 //To execute Hold command
 router.get('/hold', function (req, res) {
-    var connecConfigObj = new connectConfig(req.query['hostAddress'], req.query['portNumber'], req.query['userName'], req.query['udsName'], req.query['executiveName']);
-    var connectConfigJSON = JSON.stringify(connecConfigObj);
-    console.log('In status update freeze: ' + getConfigBat(connectConfigJSON));
+    var resKey = new resObjKey(handleRequest(req), "hold");
+    saveMap(resKey, res);               //save the response object
+    console.log('In status update hold: ' + getConfigBat(connectConfigJSON));
     if (getConfigBat(connectConfigJSON) != null) {
-        getConfigBat(connectConfigJSON).stdin.write("Freeze\n");
+        getConfigBat(connectConfigJSON).stdin.write("Hold\n");
     } else {
-        resMsg.responseMessage = 'Not Connected, Freeze Exection Failed. Reconnect and Try again!!!';
+        resMsg.responseMessage = 'Not Connected, Hold Exection Failed. Reconnect and Try again!!!';
         sendResponse(resMsg, res);
     }
 })
+
+//To execute Rate Command.. Parameters expected <int> along with connection details
+router.get('/rate', function (req, res) {
+    var int = req.query['int'];
+    var command = "Hold " + int + "\n";
+    var resKey = new resObjKey(handleRequest(req), "rate");
+    saveMap(resKey, res);               //save the response object
+    console.log('In status update rate: ' + getConfigBat(connectConfigJSON));
+    if (getConfigBat(connectConfigJSON) != null) {
+        getConfigBat(connectConfigJSON).stdin.write(command);
+    } else {
+        resMsg.responseMessage = 'Not Connected, Rate Exection Failed. Reconnect and Try again!!!';
+        sendResponse(resMsg, res);
+    }
+})
+
+//To execute Snap Command.. Parameters expected <icname> along with connection details
+router.get('/snap', function (req, res) {
+    var icname = req.query['icname'];
+    var command = "Snap " + icname + "\n";
+    var resKey = new resObjKey(handleRequest(req), "snap");
+    saveMap(resKey, res);               //save the response object
+    console.log('In status update snap: ' + getConfigBat(connectConfigJSON));
+    if (getConfigBat(connectConfigJSON) != null) {
+        getConfigBat(connectConfigJSON).stdin.write(command);
+    } else {
+        resMsg.responseMessage = 'Not Connected, Snap Exection Failed. Reconnect and Try again!!!';
+        sendResponse(resMsg, res);
+    }
+})
+
+//To execute Reset Command.. Parameters expected <icname> along with connection details
+router.get('/reset', function (req, res) {
+    var icname = req.query['icname'];
+    var command = "Reset " + icname + "\n";
+    var resKey = new resObjKey(handleRequest(req), "reset");
+    saveMap(resKey, res);               //save the response object
+    console.log('In status update reset: ' + getConfigBat(connectConfigJSON));
+    if (getConfigBat(connectConfigJSON) != null) {
+        getConfigBat(connectConfigJSON).stdin.write(command);
+    } else {
+        resMsg.responseMessage = 'Not Connected, Reset Exection Failed. Reconnect and Try again!!!';
+        sendResponse(resMsg, res);
+    }
+})
+
+//To execute Reset Command.. Parameters expected <icname> along with connection details
+router.get('/GetDbmMap', function (req, res) {
+    var symbol = req.query['symbol'];
+    var level = req.query['level'];
+    var command = "GetDbmMap " + icname + " " + level + "\n";
+    var resKey = new resObjKey(handleRequest(req), "GetDbmMap");
+    saveMap(resKey, res);               //save the response object
+    console.log('In status update GetDbmMap: ' + getConfigBat(connectConfigJSON));
+    if (getConfigBat(connectConfigJSON) != null) {
+        getConfigBat(connectConfigJSON).stdin.write(command);
+    } else {
+        resMsg.responseMessage = 'Not Connected, GetDbmMap Exection Failed. Reconnect and Try again!!!';
+        sendResponse(resMsg, res);
+    }
+})
+
+
 
 function sendResponse(data, res) {
     var jsonData = JSON.stringify(data);
