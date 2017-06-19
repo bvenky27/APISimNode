@@ -1,3 +1,5 @@
+//created to avoid cyclic dependency
+
 var resMap = new Map();
 
 function saveMap(resKey, res) {
