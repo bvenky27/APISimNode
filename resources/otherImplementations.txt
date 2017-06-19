@@ -1,0 +1,33 @@
+other implmentations for running the exe files tested
+
+
+
+
+var cmd = require('node-cmd');
+//it buffers buffers but doesnot stream so discarded.....
+const exec = require('child_process').exec;
+/*
+    exec(
+        "C:\\GSES\\SimExec\\Users\\setenv.cmd && C:\\GSES\\SimExec\\mbin\\ia32\\giidemo.exe localhost 9000 fws load testexec", (e, stdout, stderr) => {
+        if (e instanceof Error) {
+            console.error(e);
+            throw e;
+        }
+        console.log('stdout ', stdout);
+        console.log('stderr ', stderr);
+    });
+    */
+    /*
+//same with this too it buffers so spawn() is used to pass the input and outputs.
+    cmd.get(
+         'C:\\GSES\\SimExec\\Users\\setenv.cmd && C:\\GSES\\SimExec\\mbin\\ia32\\giidemo.exe localhost 9000 fws load testexec',
+        function (err, data, stderr) {
+            if (!err) {
+                console.log('Output', data.toString())
+            } else {
+                console.log('error', err)
+            }
+
+        }
+    );
+    */
